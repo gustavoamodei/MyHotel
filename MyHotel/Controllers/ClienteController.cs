@@ -31,5 +31,29 @@ namespace MyHotel.Controllers
 
             return View();
         }
+        [HttpPost]
+        public JsonResult getCidades(int estado)
+
+        {
+
+           ClienteModel objcidades = new ClienteModel();
+           var lista=  objcidades.populaCidades(estado);
+            return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
+            
+        }
+
+
+        [HttpGet]
+        public JsonResult getEstados()
+
+        {
+
+            ClienteModel objestadoss = new ClienteModel();
+            var lista = objestadoss.populaEstados();
+            return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+
     }
 }

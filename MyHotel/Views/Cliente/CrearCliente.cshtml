@@ -1,4 +1,16 @@
 ﻿@model MyHotel.Models.ClienteModel
+
+@{
+    var vcidades = "";
+
+
+    try
+    {
+
+        vcidades = @ViewBag.Listacidades.Cidade.ToString();
+    }
+    catch { }
+}
 @{
     ViewBag.Title = "Cadastro de clientes";
 }
@@ -18,21 +30,21 @@
 
         <div class="col-lg-6 col-sm-10">
             <div class="form-group">
-                <label for="Nome">Cpf:</label>
+                <label for="Cpf">Cpf:</label>
                 <input type="text" class="form-control" asp-for="Cpf">
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
         </div>
         <div class="col-lg-6 col-sm-10">
             <div class="form-group">
-                <label for="Nome">Celular:</label>
+                <label for="Celular">Celular:</label>
                 <input type="text" class="form-control" asp-for="Celular">
                 <span asp-validation-for="Celular" class="text-danger"></span>
             </div>
         </div>
         <div class="col-lg-6 col-sm-10">
             <div class="form-group">
-                <label for="Endereço">Endereço:</label>
+                <label for="Endereco">Endereço:</label>
                 <input type="text" class="form-control" asp-for="Endereco">
                 <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
@@ -40,25 +52,20 @@
         <div class="col-lg-6 col-sm-10">
             <div class="form-group">
                 <label for="Estado">Estado</label>
-                <select class="form-control" asp-for="Estado">
-                    <option>RJ</option>
-                    <option>MG</option>
-                    <option>SP</option>
-                    <option>GO</option>
+                <select class="form-control" asp-for="Estado" id="estado">
+                    <option value="19" selected>Rio de Janeiro</option>
                 </select>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-10">
+        <div class="col-lg-6 col-sm-10 col-md-6">
             <div class="form-group">
                 <label for="Cidade">Cidade</label>
-                <select class="form-control" asp-for="Estado">
-                    <option>Rio de Janeiro</option>
-                    <option>Minas Gerais</option>
-                    <option>São Paulo</option>
-                    <option>Goiás</option>
-                </select>
+                <select asp-for="Cidade" class="form-control" id="cidade"></select>
             </div>
         </div>
+
+
+
 
         <div class="col-lg-12">
             <div class="form-group">
@@ -70,3 +77,53 @@
 
 </form>
 
+@section Scripts
+    {
+
+
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#estado").change(function () {
+                var estado = $("#estado").val();
+                $("#cidade").empty();
+                $.post("/Cliente/getCidades",
+                    {
+                        estado: estado,
+
+                    },
+                    function (data, status) {
+                    
+                        var selectbox = $('#cidade');
+
+                        for (var i = 0; i < data.length; i++) {
+                            selectbox.append('<option value="' + data[i].Cidade + '">' + data[i].Cidade + '</option>');
+                       
+                        }
+               
+
+                    });
+            });
+
+            $("#estado").focus(function () {
+                var estado = $("#estado").val();
+                $("#estado").empty();
+                $.get("/Cliente/getEstados",
+                    
+                    function (data, status) {
+
+                        var selectbox = $('#estado');
+
+                        for (var i = 0; i < data.length; i++) {
+                            selectbox.append('<option value="' + data[i].Id + '">' + data[i].Estado + '</option>');
+
+                        }
+
+
+                    });
+            });
+        });
+    </script>
+}
