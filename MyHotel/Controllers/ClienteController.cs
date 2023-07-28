@@ -16,9 +16,17 @@ namespace MyHotel.Controllers
 
             return View();
         }
+      
+
         [HttpGet]
-        public IActionResult CrearCliente()
+        public IActionResult CrearCliente(int ?id)
         {
+            if (id != null)
+            {
+                ClienteModel cliente = new ClienteModel();
+                ViewBag.RecuperaCliente = cliente.CarregarCliente(id);
+              
+            }
             return View();
         }
 

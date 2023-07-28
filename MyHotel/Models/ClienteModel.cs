@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace MyHotel.Models
 {
     public class ClienteModel
@@ -32,18 +33,55 @@ namespace MyHotel.Models
         public void Insert()
         {
 
-            string sql2 = $"select nome from estados where id ={Estado}";
-           
-            DAL data2 = new DAL();
-            DataTable dt =  data2.RetDataTable(sql2);
-            string estadoNome = dt.Rows[0]["nome"].ToString();
+            if (Id == 0)
+            {
 
-            string sql = $"insert into cliente (nome,cpf,estado,cidade,celular,endereco) values('{Nome}','{Cpf}','{estadoNome}','{Cidade}','{Celular}','{Endereco}')";
-            DAL data = new DAL();
-            
-            
-            data2.ExecutarComandoSQL(sql2);
-            data.ExecutarComandoSQL(sql);
+                string sql2 = $"select nome from estados where id ={Estado}";
+
+                DAL data2 = new DAL();
+                DataTable dt = data2.RetDataTable(sql2);
+                string estadoNome = dt.Rows[0]["nome"].ToString();
+
+                string sql = $"insert into cliente (nome,cpf,estado,cidade,celular,endereco) values('{Nome}','{Cpf}','{estadoNome}','{Cidade}','{Celular}','{Endereco}')";
+                DAL data = new DAL();
+
+
+                data2.ExecutarComandoSQL(sql2);
+                data.ExecutarComandoSQL(sql);
+            }
+            else
+            {
+                string sql2 = $"select nome from estados where id ={Estado}";
+
+                DAL data2 = new DAL();
+                DataTable dt = data2.RetDataTable(sql2);
+                string estadoNome = dt.Rows[0]["nome"].ToString();
+
+                string sql = $"update  cliente set nome = '{Nome}',cpf='{Cpf}',estado = {estadoNome},celular = '{Celular}',endereco = '{Endereco}',cidade{Cidade} where id = '{Id}' )";
+                DAL data = new DAL();
+
+
+                data2.ExecutarComandoSQL(sql2);
+                data.ExecutarComandoSQL(sql);
+            }
+        }
+
+
+        public ClienteModel CarregarCliente(int? id)
+        {
+            ClienteModel item = new ClienteModel();
+
+            string sql = $"SELECT  id,nome,cpf,celular,endereco,estado,cidade from cliente where id = '{id}'";
+            DAL objDAL = new DAL();
+            DataTable dt = objDAL.RetDataTable(sql);
+
+            item.Id = int.Parse(dt.Rows[0]["id"].ToString());
+            item.Nome = dt.Rows[0]["nome"].ToString();
+            item.Cpf = dt.Rows[0]["cpf"].ToString();
+            item.Estado = dt.Rows[0]["Estado"].ToString();
+            item.Cidade = dt.Rows[0]["Cidade"].ToString();
+            item.Celular = dt.Rows[0]["celular"].ToString();
+            return item;
         }
 
         public List<ClienteModel> ListarClientes()

@@ -1,81 +1,102 @@
 ﻿@model MyHotel.Models.ClienteModel
 @{
     ViewBag.Title = "Cadastro de clientes";
+
+    string nome = "";
+
+
+    try
+    {
+        nome = @ViewBag.RecuperaCliente.Nome.ToString();
+    }
+    catch
+    {
+
+    }
+
 }
+
+
 <br />
 <br />
+<br />
+<br />
+
 <div class="row">
-    <div class="col-lg-5 col-lg-offset-4">
-        <h2>Cadastro de clientes</h2>
+    <div class="col-md-12">
+        <h2 class="text-center">Cadastro de clientes</h2>
     </div>
 </div>
 
 <br />
 <br />
 <br />
-<br />
-<br />
+
 <form asp-controller="Cliente" asp-action="CrearCliente">
-  
+
     <div class="row">
-        <div class="col-lg-6 col-sm-10">
+        <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Nome">Nome:</label>
-                <input type="text" class="form-control" asp-for="Nome">
+                <input type="text" class="form-control" asp-for="Nome" value="@nome">
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
         </div>
-
-        <div class="col-lg-6 col-sm-10">
+        
+        <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Cpf">Cpf:</label>
                 <input type="text" class="form-control" asp-for="Cpf">
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-10">
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Celular">Celular:</label>
                 <input type="text" class="form-control" asp-for="Celular">
                 <span asp-validation-for="Celular" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-10">
+        <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Endereco">Endereço:</label>
                 <input type="text" class="form-control" asp-for="Endereco">
                 <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-10">
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Estado">Estado</label>
-                <select class="form-control" asp-for="Estado" name="Estado" id="estado">
-                    
-                </select>
+                <select class="form-control" asp-for="Estado" name="Estado" id="estado"></select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-10">
+        <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Cidade">Cidade</label>
                 <select asp-for="Cidade" class="form-control" id="cidade"></select>
                 <span asp-validation-for="Cidade" class="text-danger"></span>
             </div>
         </div>
+    </div>
 
-
-
-
-        <div class="col-lg-12">
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-10">
             <div class="form-group">
                 <button type="submit" class="  btn-group-justified  btn btn-default btn-success">Registrar</button>
             </div>
         </div>
-
     </div>
 
+
 </form>
+
+
 
 @section Scripts
     {
@@ -92,14 +113,14 @@
 
                     },
                     function (data, status) {
-                    
+
                         var selectbox = $('#cidade');
 
                         for (var i = 0; i < data.length; i++) {
                             selectbox.append('<option value="' + data[i].Cidade + '">' + data[i].Cidade + '</option>');
-                       
+
                         }
-               
+
 
                     });
             });
@@ -108,7 +129,7 @@
                 var estado = $("#estado").val();
                 $("#estado").empty();
                 $.get("/Cliente/GetEstados",
-                    
+
                     function (data, status) {
 
                         var selectbox = $('#estado');
