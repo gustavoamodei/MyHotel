@@ -11,6 +11,9 @@ namespace MyHotel.Controllers
     {
         public IActionResult Index()
         {
+            ClienteModel cliente = new ClienteModel();
+            ViewBag.ListaClientes = cliente.ListarClientes();
+
             return View();
         }
         [HttpGet]
@@ -25,31 +28,31 @@ namespace MyHotel.Controllers
             if (ModelState.IsValid)
             {
                 //formulario.HttpContextAccessor = HttpContextAccessor;
-                cliente.insert();
+                cliente.Insert();
                 return RedirectToAction("Index");
             }
 
             return View();
         }
         [HttpPost]
-        public JsonResult getCidades(int estado)
+        public JsonResult GetCidades(int estado)
 
         {
 
            ClienteModel objcidades = new ClienteModel();
-           var lista=  objcidades.populaCidades(estado);
+           var lista=  objcidades.PopulaCidades(estado);
             return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
             
         }
 
 
         [HttpGet]
-        public JsonResult getEstados()
+        public JsonResult GetEstados()
 
         {
 
             ClienteModel objestadoss = new ClienteModel();
-            var lista = objestadoss.populaEstados();
+            var lista = objestadoss.PopulaEstados();
             return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
 
         }

@@ -1,0 +1,82 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+﻿
+<h3>Clientes</h3>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Celular</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>#</th>
+            <th>#</th>
+        </tr>
+    </thead>
+
+    @{
+        foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
+        {
+            <tbody>
+                <tr>
+                    <td>@item.Id.ToString()</td>
+                    <td>@item.Nome.ToString()</td>
+                    <td>@item.Celular.ToString()</td>
+                    <td id="table-estado">@item.Estado.ToString()</td>
+                    <td>@item.Cidade.ToString()</td>
+                    <td><button type="button" class="btn btn-primary" onclick="Editar(@item.Id.ToString())">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id.ToString())">Excluir</button></td>
+                </tr>
+            </tbody>
+        }
+    }
+
+</table>
+
+<button type="button" class="btn btn-block btn-success" onclick="RegistrarTransacao()">Registrar Transação</button>
+
+<script>
+    function RegistrarTransacao() {
+        window.location.href = "../Cliente/CrearCliente";
+    }
+
+    function Excluir(id) {
+        window.location.href = "../Cliente/ExcluirTransacao/" + id;
+    }
+
+    function Editar(id) {
+        window.location.href = "../Cliente/Registrar/" + id;
+    }
+</script>
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        $(function(){
+            $("#estado").focus(function () {
+                var estado = $("#table-estado").html();
+                $.get("/Cliente/GetEstados",
+
+                    function (data, status) {
+
+                        var selectbox = $('#estado');
+
+                        for (var i = 0; i < data.length; i++) {
+                        selectbox.append('<option value="' + data[i].Id + '">' + data[i].Estado + '</option>');
+
+                    }
+
+
+                });
+            });
+        });
+    </script>
+    }

@@ -1,24 +1,22 @@
 ﻿@model MyHotel.Models.ClienteModel
-
-@{
-    var vcidades = "";
-
-
-    try
-    {
-
-        vcidades = @ViewBag.Listacidades.Cidade.ToString();
-    }
-    catch { }
-}
 @{
     ViewBag.Title = "Cadastro de clientes";
 }
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-5 col-lg-offset-4">
+        <h2>Cadastro de clientes</h2>
+    </div>
+</div>
 
-
-<h2>Cadastro de clientes</h2>
-<br /><br /><br /> <br /><br /><br /><br /><br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <form asp-controller="Cliente" asp-action="CrearCliente">
+  
     <div class="row">
         <div class="col-lg-6 col-sm-10">
             <div class="form-group">
@@ -52,15 +50,17 @@
         <div class="col-lg-6 col-sm-10">
             <div class="form-group">
                 <label for="Estado">Estado</label>
-                <select class="form-control" asp-for="Estado" id="estado">
-                    <option value="19" selected>Rio de Janeiro</option>
+                <select class="form-control" asp-for="Estado" name="Estado" id="estado">
+                    
                 </select>
+                <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-10 col-md-6">
+        <div class="col-lg-6 col-sm-10">
             <div class="form-group">
                 <label for="Cidade">Cidade</label>
                 <select asp-for="Cidade" class="form-control" id="cidade"></select>
+                <span asp-validation-for="Cidade" class="text-danger"></span>
             </div>
         </div>
 
@@ -80,16 +80,13 @@
 @section Scripts
     {
 
-
-
-
     <script type="text/javascript">
 
         $(function () {
             $("#estado").change(function () {
                 var estado = $("#estado").val();
                 $("#cidade").empty();
-                $.post("/Cliente/getCidades",
+                $.post("/Cliente/GetCidades",
                     {
                         estado: estado,
 
@@ -110,7 +107,7 @@
             $("#estado").focus(function () {
                 var estado = $("#estado").val();
                 $("#estado").empty();
-                $.get("/Cliente/getEstados",
+                $.get("/Cliente/GetEstados",
                     
                     function (data, status) {
 
