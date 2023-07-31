@@ -2,12 +2,27 @@
 @{
     ViewBag.Title = "Cadastro de clientes";
 
+    string id = "";
     string nome = "";
+    string cpf = "";
+    string [] nomeEstadoId = {"",""};
+    string cidade = "";
+    string celular = "";
+    string endereco = "";
+    string estado = "";
+
 
 
     try
     {
+        id = ViewBag.RecuperaCliente.Id.ToString();
         nome = @ViewBag.RecuperaCliente.Nome.ToString();
+        cpf = ViewBag.RecuperaCliente.Cpf.ToString();
+        estado = ViewBag.RecuperaCliente.Estado.ToString();
+        cidade = ViewBag.RecuperaCliente.Cidade.ToString();
+        celular = ViewBag.RecuperaCliente.Celular.ToString();
+        endereco = ViewBag.RecuperaCliente.Endereco.ToString();
+        nomeEstadoId = estado.Split('-');
     }
     catch
     {
@@ -46,7 +61,7 @@
         <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Cpf">Cpf:</label>
-                <input type="text" class="form-control" asp-for="Cpf">
+                <input type="text" class="form-control" asp-for="Cpf" value="@cpf">
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
         </div>
@@ -55,14 +70,14 @@
         <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Celular">Celular:</label>
-                <input type="text" class="form-control" asp-for="Celular">
+                <input type="text" class="form-control" asp-for="Celular" value="@celular">
                 <span asp-validation-for="Celular" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Endereco">Endereço:</label>
-                <input type="text" class="form-control" asp-for="Endereco">
+                <input type="text" class="form-control" asp-for="Endereco" value="@endereco">
                 <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
         </div>
@@ -71,14 +86,18 @@
         <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Estado">Estado</label>
-                <select class="form-control" asp-for="Estado" name="Estado" id="estado"></select>
+                <select class="form-control" asp-for="Estado" name="Estado" id="estado">
+                    <option value="@nomeEstadoId[1]">@nomeEstadoId[0]</option>
+                </select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6 col-sm-10">
             <div class="form-group">
                 <label for="Cidade">Cidade</label>
-                <select asp-for="Cidade" class="form-control" id="cidade"></select>
+                <select asp-for="Cidade" class="form-control" id="cidade">
+                    <option value="@cidade">@cidade</option>
+                </select>
                 <span asp-validation-for="Cidade" class="text-danger"></span>
             </div>
         </div>

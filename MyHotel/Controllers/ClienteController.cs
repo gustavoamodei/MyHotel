@@ -64,7 +64,24 @@ namespace MyHotel.Controllers
             return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
 
         }
+        [HttpGet]
+        public JsonResult Excluir(string id)
+        {
+            ClienteModel objcliente = new ClienteModel();
+            var lista = objcliente.ExcluirCliente(id);
+            return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
+        }
 
+        [HttpGet]
+        public JsonResult tb()
+
+        {
+
+            ClienteModel objestadoss = new ClienteModel();
+            var lista = objestadoss.Teste();
+            return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
 
     }
 }

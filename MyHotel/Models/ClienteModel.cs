@@ -57,7 +57,7 @@ namespace MyHotel.Models
                 DataTable dt = data2.RetDataTable(sql2);
                 string estadoNome = dt.Rows[0]["nome"].ToString();
 
-                string sql = $"update  cliente set nome = '{Nome}',cpf='{Cpf}',estado = {estadoNome},celular = '{Celular}',endereco = '{Endereco}',cidade{Cidade} where id = '{Id}' )";
+                string sql = $"update  cliente set nome='{Nome}',cpf='{Cpf}',estado= '{estadoNome}',celular = '{Celular}',endereco = '{Endereco}',cidade = '{Cidade}' where id = '{Id}'";
                 DAL data = new DAL();
 
 
@@ -72,15 +72,22 @@ namespace MyHotel.Models
             ClienteModel item = new ClienteModel();
 
             string sql = $"SELECT  id,nome,cpf,celular,endereco,estado,cidade from cliente where id = '{id}'";
+           
             DAL objDAL = new DAL();
             DataTable dt = objDAL.RetDataTable(sql);
 
             item.Id = int.Parse(dt.Rows[0]["id"].ToString());
             item.Nome = dt.Rows[0]["nome"].ToString();
             item.Cpf = dt.Rows[0]["cpf"].ToString();
-            item.Estado = dt.Rows[0]["Estado"].ToString();
+            string estado = item.Estado = dt.Rows[0]["Estado"].ToString();
             item.Cidade = dt.Rows[0]["Cidade"].ToString();
             item.Celular = dt.Rows[0]["celular"].ToString();
+            item.Endereco = dt.Rows[0]["endereco"].ToString();
+
+            string sql2 = $"select id from estados where nome = '{estado}'";
+            DataTable dt2 = objDAL.RetDataTable(sql2);
+            string idEstado = dt2.Rows[0]["id"].ToString();
+            item.Estado = estado+"-"+idEstado;
             return item;
         }
 
@@ -138,6 +145,43 @@ namespace MyHotel.Models
                 item.Id = int.Parse((dt.Rows[i]["id"].ToString()));
                 item.Estado = dt.Rows[i]["nome"].ToString();
               
+
+                lista.Add(item);
+            }
+            return lista;
+        }
+
+        public ClienteModel ExcluirCliente( string id)
+        {
+            ClienteModel item = new ClienteModel();
+
+            string sql = $"SELECT  id,nome from cliente where id = '{id}'";
+
+            DAL objDAL = new DAL();
+            DataTable dt = objDAL.RetDataTable(sql);
+
+            item.Id = int.Parse(dt.Rows[0]["id"].ToString());
+            item.Nome = dt.Rows[0]["nome"].ToString();
+           
+          
+            return item;
+
+        }
+
+        public List<ClienteModel>Teste()
+        {
+            List<ClienteModel> lista = new List<ClienteModel>();
+            ClienteModel item;
+            string sql = "select id,nome from cliente";
+            DAL data = new DAL();
+            DataTable dt = data.RetDataTable(sql);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                item = new ClienteModel();
+                item.Id = int.Parse((dt.Rows[i]["id"].ToString()));
+                item.Estado = dt.Rows[i]["nome"].ToString();
+
 
                 lista.Add(item);
             }

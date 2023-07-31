@@ -3,11 +3,14 @@
 *@
 @{
 }
-
-﻿
-<h3>Clientes</h3>
+<h3 class="text-center">Clientes</h3>
+<div class="row">﻿
+    <div class="col-md-12">
+        <button type="button" class=" btn btn-default btn btn-success" onclick="RegistrarTransacao()">Novo Cliente</button>
+    </div>
+</div>
 <br />
-<table class="table table-bordered">
+<table id="table" class="table table-bordered">
     <thead>
         <tr>
             <th>ID</th>
@@ -15,8 +18,8 @@
             <th>Celular</th>
             <th>Estado</th>
             <th>Cidade</th>
-            <th>#</th>
-            <th>#</th>
+            <th>Ações</th>
+            
         </tr>
     </thead>
 
@@ -25,58 +28,106 @@
         {
             <tbody>
                 <tr>
-                    <td>@item.Id.ToString()</td>
+                    <th>@item.Id.ToString()</th>
                     <td>@item.Nome.ToString()</td>
                     <td>@item.Celular.ToString()</td>
                     <td id="table-estado">@item.Estado.ToString()</td>
                     <td>@item.Cidade.ToString()</td>
-                    <td><button type="button" class="btn btn-primary" onclick="Editar(@item.Id.ToString())">Editar</button></td>
-                    <td><button type="button" class="btn btn-danger" onclick="Excluir(@item.Id.ToString())">Excluir</button></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="Editar(@item.Id.ToString())">Editar</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_excluir" onclick="buscarExcluir(@item.Id.ToString())">Excluir</button>
+                        <button type="button" class="btn btn-warning" onclick="">Detalhes</button>
+                    </td>
                 </tr>
             </tbody>
         }
     }
 
 </table>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_excluir">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Deseja Excluir?</h4>
+            </div>
+            <div class="modal-body">
+                <span id="info_excluir"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" onclick="">Confirmar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Button trigger modal -->
 
-<button type="button" class="btn btn-block btn-success" onclick="RegistrarTransacao()">Registrar Transação</button>
+<div class="row">
+    <div class="col-lg-12">
+        <table id="myDataTable" class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th> ID</th>
+                    <th> Estado</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Estado</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
 
 <script>
     function RegistrarTransacao() {
         window.location.href = "../Cliente/CrearCliente";
     }
 
-    function Excluir(id) {
-        window.location.href = "../Cliente/ExcluirTransacao/" + id;
-    }
 
     function Editar(id) {
         window.location.href = "../Cliente/CrearCliente/"+id;
+    }
+
+    function buscarExcluir(id){
+        window.location.href = "/Cliente/Excluir/"+id;
+       
     }
 </script>
 
 
 @section Scripts
     {
-    <script type="text/javascript">
-
-        $(function(){
-            $("#estado").focus(function () {
-                var estado = $("#table-estado").html();
-                $.get("/Cliente/GetEstados",
-
-                    function (data, status) {
-
-                        var selectbox = $('#estado');
-
-                        for (var i = 0; i < data.length; i++) {
-                        selectbox.append('<option value="' + data[i].Id + '">' + data[i].Estado + '</option>');
-
-                    }
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable(
+                { "searching": true}
+            );
+        });
+    </script>
 
 
-                });
+    
+    <script>
+        $(document).ready(function () {
+            //Pega os dados do banco de dados para preencher o datatable
+            var oTable = $("#myDataTable").DataTable({
+                "serverSide": "true",
+                "ajax": {
+                    "url": "/Cliente/Tb",
+                    "type": "GET",
+                    "dataType": "json"
+                },
+                "columns": [
+                    { "Lista": "Id","Name":"Id"},
+                    { "Lista": "Estado", "Name": "Estado" }
+                ]
+                
             });
         });
     </script>
+
     }
