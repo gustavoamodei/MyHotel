@@ -12,21 +12,21 @@ namespace MyHotel.Models
     public class ClienteModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "Informe a Nome !")]
+        //[Required(ErrorMessage = "Informe a Nome !")]
         public string Nome { get; set; }
-        [Required(ErrorMessage = "Informe a cpf !")]
+        //[Required(ErrorMessage = "Informe a cpf !")]
         //[StringLength(11, MinimumLength = 11,ErrorMessage ="cpf deve conter 11 caracteres")]
-        [RegularExpression(@"^\d{3}.\d{3}.\d{3}-\d{2}$", ErrorMessage = "cpf deve conter o padrão 111.111.111-11")]
+        //[RegularExpression(@"^\d{3}.\d{3}.\d{3}-\d{2}$", ErrorMessage = "cpf deve conter o padrão 111.111.111-11")]
         public string Cpf { get; set; }
-        [Required(ErrorMessage = "Informe a Estado !")]
+        //[Required(ErrorMessage = "Informe a Estado !")]
         public string Estado { get; set; }
-        [Required(ErrorMessage = "Informe a Cidade !")]
+        //[Required(ErrorMessage = "Informe a Cidade !")]
         public string Cidade { get; set; }
-        [Required(ErrorMessage = "Informe o celular !")]
+        //[Required(ErrorMessage = "Informe o celular !")]
        
-        [RegularExpression(@"^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$", ErrorMessage= "o padrão é (xx) xxxxx-xxxx ou somente números")]
+        //[RegularExpression(@"^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$", ErrorMessage= "o padrão é (xx) xxxxx-xxxx ou somente números")]
         public string Celular { get; set; }
-        [Required(ErrorMessage = "Informe a Endereco !")]
+        //[Required(ErrorMessage = "Informe a Endereco !")]
         public string Endereco { get; set; }
 
 
@@ -151,41 +151,14 @@ namespace MyHotel.Models
             return lista;
         }
 
-        public ClienteModel ExcluirCliente( string id)
+        public void ExcluirCliente(string id)
         {
-            ClienteModel item = new ClienteModel();
+            string sql = $"delete from cliente where id = '{id}'";
 
-            string sql = $"SELECT  id,nome from cliente where id = '{id}'";
-
-            DAL objDAL = new DAL();
-            DataTable dt = objDAL.RetDataTable(sql);
-
-            item.Id = int.Parse(dt.Rows[0]["id"].ToString());
-            item.Nome = dt.Rows[0]["nome"].ToString();
-           
-          
-            return item;
-
-        }
-
-        public List<ClienteModel>Teste()
-        {
-            List<ClienteModel> lista = new List<ClienteModel>();
-            ClienteModel item;
-            string sql = "select id,nome from cliente";
             DAL data = new DAL();
-            DataTable dt = data.RetDataTable(sql);
+            data.ExecutarComandoSQL(sql);
 
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                item = new ClienteModel();
-                item.Id = int.Parse((dt.Rows[i]["id"].ToString()));
-                item.Estado = dt.Rows[i]["nome"].ToString();
-
-
-                lista.Add(item);
-            }
-            return lista;
+       
         }
 
     }

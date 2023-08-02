@@ -19,16 +19,19 @@ namespace MyHotel.Controllers
       
 
         [HttpGet]
-        public IActionResult CrearCliente(int ?id)
+        public IActionResult CrearCliente(int? id)
         {
-            if (id != null)
-            {
-                ClienteModel cliente = new ClienteModel();
-                ViewBag.RecuperaCliente = cliente.CarregarCliente(id);
-              
-            }
+           
+                if (id != null)
+                {
+                    ClienteModel cliente = new ClienteModel();
+                    ViewBag.RecuperaCliente = cliente.CarregarCliente(id);
+
+                }
+            
             return View();
         }
+
 
         [HttpPost]
         public IActionResult CrearCliente(ClienteModel cliente)
@@ -39,7 +42,7 @@ namespace MyHotel.Controllers
                 cliente.Insert();
                 return RedirectToAction("Index");
             }
-
+            
             return View();
         }
         [HttpPost]
@@ -64,24 +67,22 @@ namespace MyHotel.Controllers
             return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
 
         }
-        [HttpGet]
-        public JsonResult Excluir(string id)
+        [HttpPost]
+        public IActionResult Excluir(string id)
         {
             ClienteModel objcliente = new ClienteModel();
-            var lista = objcliente.ExcluirCliente(id);
-            return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
+            objcliente.ExcluirCliente(id);
+            return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public JsonResult tb()
+      //  public JsonResult GetDetalhes(int id)
+        //{
+            //ClienteModel objestadoss = new ClienteModel();
+            //var lista = objestadoss.CarregarCliente(id);
+            //return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
+        //}
 
-        {
-
-            ClienteModel objestadoss = new ClienteModel();
-            var lista = objestadoss.Teste();
-            return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
-
-        }
+        
 
     }
 }

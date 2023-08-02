@@ -3,10 +3,15 @@
 *@
 @{
 }
+
 <h3 class="text-center">Clientes</h3>
-<div class="row">﻿
-    <div class="col-md-12">
+<div class="row">
+    ﻿
+    <div class="col-md-6">
         <button type="button" class=" btn btn-default btn btn-success" onclick="RegistrarTransacao()">Novo Cliente</button>
+    </div>
+    <div id="alert_red">
+
     </div>
 </div>
 <br />
@@ -19,14 +24,14 @@
             <th>Estado</th>
             <th>Cidade</th>
             <th>Ações</th>
-            
+
         </tr>
     </thead>
+    <tbody>
+        @{
+            foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
+            {
 
-    @{
-        foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
-        {
-            <tbody>
                 <tr>
                     <th>@item.Id.ToString()</th>
                     <td>@item.Nome.ToString()</td>
@@ -35,52 +40,57 @@
                     <td>@item.Cidade.ToString()</td>
                     <td>
                         <button type="button" class="btn btn-primary" onclick="Editar(@item.Id.ToString())">Editar</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_excluir" onclick="buscarExcluir(@item.Id.ToString())">Excluir</button>
-                        <button type="button" class="btn btn-warning" onclick="">Detalhes</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_excluir" id="excluir">Excluir</button>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_detalhes" id="detalhes">Detalhes</button>
                     </td>
                 </tr>
-            </tbody>
-        }
-    }
 
+            }
+        }
+    </tbody>
 </table>
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_excluir">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Deseja Excluir?</h4>
+                <h4 class="modal-title">Deseja Realmente Excluir registro de id <span id="info_excluir"></span>? </h4>
             </div>
             <div class="modal-body">
-                <span id="info_excluir"></span>
+
+                <h4 class="text-center" id="info_body_excluir"></h4>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" onclick="">Confirmar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirma_excluir">Confirmar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- Button trigger modal -->
 
-<div class="row">
-    <div class="col-lg-12">
-        <table id="myDataTable" class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th> ID</th>
-                    <th> Estado</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>Estado</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_detalhes">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> Detalhes </h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="info_detalhes"></p>
+                <p></p>
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Button trigger modal -->
+
+
 
 <script>
     function RegistrarTransacao() {
@@ -89,13 +99,9 @@
 
 
     function Editar(id) {
-        window.location.href = "../Cliente/CrearCliente/"+id;
+        window.location.href = "../Cliente/CrearCliente/" + id;
     }
 
-    function buscarExcluir(id){
-        window.location.href = "/Cliente/Excluir/"+id;
-       
-    }
 </script>
 
 
@@ -104,30 +110,105 @@
     <script>
         $(document).ready(function () {
             $('#table').DataTable(
-                { "searching": true}
+                {
+
+                    "oLanguage": {
+                        "sProcessing": "Processando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "Não foram encontrados resultados",
+                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                        "sInfoFiltered": "",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "Primeiro",
+                            "sPrevious": "Anterior",
+                            "sNext": "Seguinte",
+                            "sLast": "Último"
+                        }
+                    }
+                }
+
+
             );
         });
+
+
     </script>
 
 
-    
     <script>
-        $(document).ready(function () {
-            //Pega os dados do banco de dados para preencher o datatable
-            var oTable = $("#myDataTable").DataTable({
-                "serverSide": "true",
-                "ajax": {
-                    "url": "/Cliente/Tb",
-                    "type": "GET",
-                    "dataType": "json"
-                },
-                "columns": [
-                    { "Lista": "Id","Name":"Id"},
-                    { "Lista": "Estado", "Name": "Estado" }
-                ]
-                
+
+
+
+
+        $(document).on("click", "#table>tbody>tr", function () {
+            let dados = $('#table').DataTable().row(this).data();
+            $("#info_excluir").text(dados[0]);
+            $("#info_detalhes").text(dados[0]);
+            $("#info_body_excluir").text('Excluir ' + dados[0] + ' - ' + dados[1] + '?');
+        });
+
+
+
+        $(function () {
+            $("#confirma_excluir").click(function () {
+                var id = $("#info_excluir").text();
+                $.post("/Cliente/Excluir/" + id,
+                    { data: id },
+                    function (data, status) {
+
+                        $('#alert_red').html(
+                            `<div class="alert alert-success alert-dismissible col-md-6">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                Cliente Deletado com sucesso!!
+                                </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
+                        //id=0;
+                        var delay = 5000; //3 seconds
+                        setTimeout(function () {
+                            history.go(0);
+                            //your code to be executed after 1 seconds
+                        }, delay);
+                        //alert(status)
+
+                    });
+            });
+            $(document).ajaxError(function () {
+                $('#alert_red').html(
+                    `<div class="alert alert-danger alert-dismissible col-md-6">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                Erro verifique a conexão!!
+                                </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
+                //id=0;
+                var delay = 5000; //3 seconds
+                setTimeout(function () {
+                    history.go(0);
+                    //your code to be executed after 1 seconds
+                }, delay);
+                //alert(status)
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#detalhes").mouseenter(function () {
+                var id = $("#info_detalhes").text();
+
+                $.get("/Cliente/GetDetalhes" + id,
+
+                    function (data, status) {
+
+                        alert(data.Nome);
+
+
+                    });
             });
         });
     </script>
 
-    }
+
+}
