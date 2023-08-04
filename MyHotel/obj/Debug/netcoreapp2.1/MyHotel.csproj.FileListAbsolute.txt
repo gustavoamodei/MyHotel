@@ -70,3 +70,5 @@ C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.V
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.dll
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.pdb
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.csproj.CopyComplete
+C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\CrearCardapio.cshtml.g.cs
+C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\Index.cshtml.g.cs

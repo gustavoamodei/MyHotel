@@ -74,13 +74,13 @@ namespace MyHotel.Controllers
             objcliente.ExcluirCliente(id);
             return RedirectToAction("Index");
         }
-
-      //  public JsonResult GetDetalhes(int id)
-        //{
-            //ClienteModel objestadoss = new ClienteModel();
-            //var lista = objestadoss.CarregarCliente(id);
-            //return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
-        //}
+        [HttpGet]
+        public JsonResult GetDetalhes(int id)
+        {
+            ClienteModel objestadoss = new ClienteModel();
+            var lista = objestadoss.CarregarDetalhesCliente(id);
+            return Json(lista, new Newtonsoft.Json.JsonSerializerSettings());
+        }
 
         
 

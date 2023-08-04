@@ -161,5 +161,24 @@ namespace MyHotel.Models
        
         }
 
-    }
+        public ClienteModel CarregarDetalhesCliente(int id)
+        {
+            ClienteModel item = new ClienteModel();
+
+            string sql = $"SELECT  id,nome,cpf,celular,endereco,estado,cidade from cliente where id = '{id}'";
+
+            DAL objDAL = new DAL();
+            DataTable dt = objDAL.RetDataTable(sql);
+
+            item.Id = int.Parse(dt.Rows[0]["id"].ToString());
+            item.Nome = dt.Rows[0]["nome"].ToString();
+            item.Cpf = dt.Rows[0]["cpf"].ToString();
+            item.Estado = dt.Rows[0]["Estado"].ToString();
+            item.Cidade = dt.Rows[0]["Cidade"].ToString();
+            item.Celular = dt.Rows[0]["celular"].ToString();
+            item.Endereco = dt.Rows[0]["endereco"].ToString();
+            return item;
+        }
+
+        }
 }
