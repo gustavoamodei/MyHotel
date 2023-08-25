@@ -1,0 +1,68 @@
+﻿@model MyHotel.Models.ReservaModel
+@{
+    ViewData["Title"] = "CrearReserva";
+}
+
+<br />
+<br />
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-11">
+        <h2 class="text-center">Criar Reserva</h2>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<form asp-controller="Reserva" asp-action="CrearReserva">
+
+    <div class="row">
+        <div class="col-md-5 col-md-offset-3 col-sm-10">
+            <div class="form-group">
+                <label for="Id">Id do Cliente:</label>
+                <input type="number" class="form-control" asp-for="Cliente_id" required>
+            </div>
+            <div class="form-group">
+                <label for="Acomodacao">Acomodação</label>
+                <select asp-for="Quarto_id" class="form-control" required>
+                    @{
+                        foreach (var item in (List<ReservaModel>)ViewBag.ListaAcomodacao)
+                        {
+                    <option value="@item.Quarto_id.ToString()">N° @item.Numero_quarto.ToString() - @item.Nome_quarto.ToString()</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Celular">Entrada:</label>
+                <input type="date" class="form-control" asp-for="Entrada" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="Endereco">Saida:</label>
+                <input type="date" class="form-control" asp-for="Saida" value="" required>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-5 col-md-offset-3 col-sm-10">
+                <div class="form-group">
+                    <button type="submit" class="  btn-group-justified  btn btn-default btn-success">Registrar</button>
+                </div>
+            </div>
+        </div>
+
+
+</form>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

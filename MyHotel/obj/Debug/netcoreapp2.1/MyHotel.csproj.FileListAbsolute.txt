@@ -36,6 +36,8 @@ C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\MyHo
 C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.genruntimeconfig.cache
 C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.csproj.CopyComplete
 C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cliente\Index.cshtml.g.cs
+C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\CrearCardapio.cshtml.g.cs
+C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\Index.cshtml.g.cs
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\bin\Debug\netcoreapp2.1\MyHotel.deps.json
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\bin\Debug\netcoreapp2.1\MyHotel.runtimeconfig.json
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\bin\Debug\netcoreapp2.1\MyHotel.runtimeconfig.dev.json
@@ -43,7 +45,6 @@ C:\Users\gustavo2\source\repos\MyHotel\MyHotel\bin\Debug\netcoreapp2.1\MyHotel.d
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\bin\Debug\netcoreapp2.1\MyHotel.pdb
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\bin\Debug\netcoreapp2.1\MyHotel.Views.dll
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\bin\Debug\netcoreapp2.1\MyHotel.Views.pdb
-C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.csprojAssemblyReference.cache
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.csproj.CoreCompileInputs.cache
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.RazorAssemblyInfo.cache
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.RazorAssemblyInfo.cs
@@ -52,6 +53,9 @@ C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.A
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.TagHelpers.input.cache
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.TagHelpers.output.cache
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.RazorCoreGenerate.cache
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Acomodacao\Index.g.cshtml.cs
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\CrearCardapio.g.cshtml.cs
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\Index.g.cshtml.cs
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cliente\CrearCliente.g.cshtml.cs
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cliente\Index.g.cshtml.cs
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
@@ -70,5 +74,8 @@ C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.V
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.dll
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.pdb
 C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.csproj.CopyComplete
-C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\CrearCardapio.cshtml.g.cs
-C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Cardapio\Index.cshtml.g.cs
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Acomodacao\CrearAcomodacao.g.cshtml.cs
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\MyHotel.csprojAssemblyReference.cache
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Reserva\Index.g.cshtml.cs
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Reserva\CrearReserva.g.cshtml.cs
+C:\Users\gustavo2\source\repos\MyHotel\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Reserva\Erro_reserva.g.cshtml.cs

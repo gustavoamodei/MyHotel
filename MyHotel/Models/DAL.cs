@@ -26,11 +26,14 @@ namespace MyHotel.Models
         //Executa SELECTs
         public DataTable RetDataTable(string sql)
         {
-            DataTable dataTable = new DataTable();
-            MySqlCommand command = new MySqlCommand(sql, connection);
-            MySqlDataAdapter da = new MySqlDataAdapter(command);
-            da.Fill(dataTable);
-            return dataTable;
+            
+                DataTable dataTable = new DataTable();
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                da.Fill(dataTable);
+                return dataTable;
+            
+          
         }
 
         //Executa INSERTs, UPDATEs, DELETEs

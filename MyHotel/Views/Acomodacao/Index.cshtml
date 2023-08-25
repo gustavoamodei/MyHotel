@@ -1,15 +1,25 @@
-﻿
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
 @{
     ViewData["Title"] = "Index";
 }
+
 <br />
 <br />
 <br />
-<h3 class="text-center">Cardápios e Bebidas</h3>
+<h3 class="text-center">Quartos e suítes</h3>
 <div class="row">
     ﻿
     <div class="col-md-6">
-        <button type="button" class=" btn btn-default btn btn-success" onclick="RegistrarTransacao()">Novo Cardápio</button>
+        <button type="button" class=" btn btn-default btn btn-success" onclick="Registrar()">Nova Acomodação</button>
     </div>
     <div id="alert_red">
     </div>
@@ -20,21 +30,25 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Cpf</th>
-            <th>Contato</th>
+            <th>Preço</th>
+            <th>Numero</th>
+            <th>Disponibilidade</th>
+            <th>Descricao</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         @{
-            foreach (var item in (List<CardapioModel>)ViewBag.ListaCardapio)
+            foreach (var item in (List<AcomodacaoModel>)ViewBag.ListaAcomodacao)
             {
 
                 <tr>
                     <th>@item.Id.ToString()</th>
                     <td>@item.Nome.ToString()</td>
                     <td>@item.Preco.ToString("N2")</td>
-                    <td >@item.Descricao.ToString()</td>
+                    <td>@item.Numero</td>
+                    <td>@item.Disponibilidade</td>
+                    <td width="40%">@item.Descricao.ToString()</td>
                     <td>
                         <button type="button" class="btn btn-primary" onclick="Editar(@item.Id.ToString())">Editar</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_excluir" id="excluir">Excluir</button>
@@ -68,16 +82,17 @@
 </div>
 
 <script>
-    function RegistrarTransacao() {
-        window.location.href = "../Cardapio/CrearCardapio";
+    function Registrar() {
+        window.location.href = "../Acomodacao/CrearAcomodacao";
     }
 
 
     function Editar(id) {
-        window.location.href = "../Cardapio/CrearCardapio/" + id;
+        window.location.href = "../Acomodacao/CrearAcomodacao/" + id;
     }
 
 </script>
+
 
 @section Scripts
     {
@@ -125,17 +140,17 @@
         $("#confirma_excluir").click(function () {
             $.ajax({
                 type: "POST",
-                url: "/Cardapio/Excluir/",
+                url: "/Acomodacao/Excluir/",
                 data: { Id: dados[0] },
                 success: function (data) {
 
 
                     $('#alert_red').html(
                         `<div class="alert alert-success alert-dismissible col-md-6">
-                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                                        <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
-                                                    Produto Deletado com sucesso!!
-                                                    </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                    <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                                                Produto Deletado com sucesso!!
+                                                                </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
                     //id=0;
                     let delay = 3000; //3 seconds
                     setTimeout(function () {
@@ -150,10 +165,10 @@
                 }, error: function () {
                     $('#alert_red').html(
                         `<div class="alert alert-danger alert-dismissible col-md-6">
-                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                                        <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
-                                                    Erro verifique a conexão!!
-                                                    </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                    <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                                                Erro verifique a conexão!!
+                                                                </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
                     //id=0;
                     let delay = 5000; //3 seconds
                     setTimeout(function () {
@@ -166,13 +181,4 @@
             });
         });
     </script>
-
-
 }
-
-<style>
-    td {
-        word-wrap: break-word;
-    }
-</style>
-

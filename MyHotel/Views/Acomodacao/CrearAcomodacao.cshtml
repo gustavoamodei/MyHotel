@@ -1,0 +1,132 @@
+﻿@model MyHotel.Models.AcomodacaoModel
+@{
+    ViewData["Title"] = "CrearQuarto";
+
+
+
+    string vid = "";
+    string vnome = "";
+    string vpreco = "";
+    string vnumero = "";
+    string vdescricao = "";
+    string vdisponibilidade = "";
+
+
+    try
+    {
+        vid = ViewBag.RecuperaAcomodacao.Id.ToString();
+        vnome = ViewBag.RecuperaAcomodacao.Nome.ToString();
+        vpreco = ViewBag.RecuperaAcomodacao.Preco.ToString("N2");
+        vdescricao = ViewBag.RecuperaAcomodacao.Descricao.ToString();
+        vdisponibilidade = ViewBag.RecuperaAcomodacao.Disponibilidade.ToString();
+        vnumero = ViewBag.RecuperaAcomodacao.Numero.ToString();
+
+    }
+    catch
+    {
+
+    }
+
+}
+
+
+
+<h2>CrearQuarto</h2>
+
+
+<br />
+<br />
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="text-center">Cadastro de Acomodações</h2>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+<form asp-controller="Acomodacao" asp-action="CrearAcomodacao">
+
+    <div class="row">
+        <div class="col-md-6 col-sm-10">
+            <div class="form-group">
+                <label for="Nome">Nome:</label>
+                <input type="text" class="form-control" asp-for="Nome" value="@vnome">
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-10">
+            <div class="form-group">
+                <label for="Preco">Preço:</label>
+                <input type="text" class="form-control" asp-for="Preco" value="@vpreco" id="preco" title="Valor da diaria do quarto" required>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-10">
+            <div class="form-group">
+                <label for="Numero">Nùmero do quarto:</label>
+                <input type="text" class="form-control" asp-for="Numero" value="@vnumero" id="celular" title="digite o Numero do quarto" required>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-10">
+            <div class="form-group">
+                <label for="Disponibilidade">Disponível</label>
+                <select asp-for="Disponibilidade" class="form-control" required>
+                    @{
+                        if (vdisponibilidade.Equals("Disponivel"))
+                        {
+                            <option value="Disponivel" selected>Disponível</option>
+                            <option value="Indisponivel">Indisponível</option>
+                        }
+                        else
+                        {
+                            <option value="Disponivel">Disponível</option>
+                            <option value="Indisponível" selected>Indisponível</option>
+                        }
+                    }
+                </select>
+
+     
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-10">
+
+            <div class="form-group">
+                <label for="Descricao">Descricao:</label>
+                @Html.TextArea("Descricao", vdescricao, new { @class = "form-control", @cols = 20, @rows = 4 })
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-10">
+            <div class="form-group">
+                <button type="submit" class="  btn-group-justified  btn btn-default btn-success">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+
+
+@section Scripts
+    {
+    <script>
+                $(document).ready(function () {
+
+                    $('#preco').mask('000.000.000.000.000,00', {reverse: true});
+                    //$('#preco').mask("#.##0,00", {reverse: true});
+                });
+    </script>
+}        

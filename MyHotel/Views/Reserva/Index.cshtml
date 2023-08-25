@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<br />
+<h3 class="text-center">Reservas</h3>
+<div class="row">
+    ﻿
+    <div class="col-md-6">
+        <button type="button" class=" btn btn-default btn btn-success" onclick="Registrar()">Criar Reserva</button>
+    </div>
+    <div id="alert_red">
+    </div>
+</div>
+<br />
+<table id="table" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Id Cliente</th>
+            <th>Cliente</th>
+            <th>Acomodação</th>
+            <th>N° Acomodação</th>
+            <th>Entrada</th>
+            <th>Saida</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @{
+            foreach (var item in (List<ReservaModel>)ViewBag.ListaReservaAtiva)
+            {
+
+                <tr>
+                    <td>@item.Id.ToString()</td>
+                    <td>@item.Cliente_id.ToString()</td>
+                    <td>@item.Nome_Cliente</td>
+                    <td>@item.Nome_quarto</td>
+                    <td>@item.Numero_quarto</td>
+                    <td>@item.Entrada.ToString("dd'/'MM'/'yyyy")</td>
+                    <td>@item.Saida.ToString("dd'/'MM'/'yyyy")</td>
+                    <td>@item.Status.ToString()</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="Editar(@item.Id.ToString())">Editar</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_excluir" id="excluir">Excluir</button>
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+
+<script>
+    function Registrar() {
+        window.location.href = "../Reserva/CrearReserva";
+    }
+
+
+    function Editar(id) {
+        window.location.href = "../Acomodacao/AlterarReserva/" + id;
+    }
+
+</script>
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable(
+                {
+
+                    "oLanguage": {
+                        "sProcessing": "Processando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "Não foram encontrados resultados",
+                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                        "sInfoFiltered": "",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "Primeiro",
+                            "sPrevious": "Anterior",
+                            "sNext": "Seguinte",
+                            "sLast": "Último"
+                        }
+                    }
+                }
+
+
+            );
+        });
+    </script>
+ }
