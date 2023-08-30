@@ -42,6 +42,11 @@ namespace MyHotel.Models
             MySqlCommand command = new MySqlCommand(sql, connection);
             command.ExecuteNonQuery();
         }
+        public int ExecuteEscalar(string sql)
+        {
+            MySqlCommand command = new MySqlCommand(sql, connection);
+           return  (int)command.ExecuteScalar();
+        }
     }
     }
 

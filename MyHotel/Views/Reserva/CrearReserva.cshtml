@@ -1,6 +1,9 @@
 ﻿@model MyHotel.Models.ReservaModel
 @{
     ViewData["Title"] = "CrearReserva";
+     string erro = (string)ViewData["erro"];
+    
+
 }
 
 <br />
@@ -16,8 +19,18 @@
 
 <br />
 <br />
-<br />
-
+@{
+    if (@erro != null)
+    {
+        <div class="row">
+                <div class="alert alert-danger alert-dismissible col-md-6 col-md-offset-6">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                    @erro
+                </div>
+        </div>
+    }
+}
 <form asp-controller="Reserva" asp-action="CrearReserva">
 
     <div class="row">
@@ -46,6 +59,7 @@
                 <input type="date" class="form-control" asp-for="Saida" value="" required>
             </div>
         </div>
+    </div>
         <br />
         <br />
         <br />
