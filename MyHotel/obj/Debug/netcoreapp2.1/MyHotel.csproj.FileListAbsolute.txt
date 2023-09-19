@@ -84,3 +84,5 @@ C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razo
 C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Reserva\CrearReserva.cshtml.g.cs
 C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Reserva\Index.cshtml.g.cs
 C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\Reserva\ReservaCanceladas.cshtml.g.cs
+C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\ContaCliente\ListaContas.cshtml.g.cs
+C:\Users\gustavo\source\repos\hotelMananger\MyHotel\obj\Debug\netcoreapp2.1\Razor\Views\ContaCliente\Checkout.cshtml.g.cs

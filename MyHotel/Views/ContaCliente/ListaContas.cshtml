@@ -1,0 +1,218 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    ViewData["Title"] = "Contas";
+}
+
+<br />
+<br />
+<br />
+<h3 class="text-center">Contas</h3>
+<div class="row">
+    <div id="alert_red">
+    </div>
+</div>
+<br />
+<table id="table" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID Conta</th>
+            <th>Cliente</th>
+            <th>Numero Acomodação</th>
+            <th>Acomodação</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+
+       
+        @{
+            foreach (var item in (List<ContaClienteModel>)ViewBag.listaContas)
+            {
+
+                <tr>
+                    <td>@item.Id.ToString()</td>
+                    <td>@item.Nome_cliente.ToString()</td>
+                    <td>@item.Numero_quarto</td>
+                    <td>@item.Nome_quarto</td>
+                    <td>@item.Total.ToString()</td>
+                    <td>@item.Status.ToString()</td>
+                    <td>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_add" id="add">Add Item</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_checkout" onclick="Editar(@item.Id.ToString())" id="check">CheckOut</button>
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_add">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Deseja add item na conta de id <span id="info_idConta"></span>? </h4>
+            </div>
+            <div class="modal-body">
+                <div class="body_contents">
+                    <h4>Adicionar items a conta de <span id="info_nome"></span></h4>
+                    <label>prodto</label>
+                    <select class="form-control"  name="alimento" id="alimento" required>
+                        
+                    </select>
+                    <br />
+                    <label>valor</label>
+                    <br />
+                    <input type="text" name="valor_alimento" id="valor_alimento" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="Add_item">Confirmar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Button trigger modal -->
+
+<script>
+        function Editar(id) {
+                 window.location.href = "/ContaCliente/Checkout/" + id;
+        }
+</script>
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable(
+                {
+
+                    "oLanguage": {
+                        "sProcessing": "Processando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "Não foram encontrados resultados",
+                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                        "sInfoFiltered": "",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "Primeiro",
+                            "sPrevious": "Anterior",
+                            "sNext": "Seguinte",
+                            "sLast": "Último"
+                        }
+                    }
+                }
+
+
+            );
+        });
+    </script>
+    <script type="text/javascript">
+
+    $(function () {
+
+           $(document).on("click", "#table>tbody>tr", function () {
+            dados = $('#table').DataTable().row(this).data();
+            $("#info_nome").text(dados[1]);
+            $("#info_idConta").text(dados[0]);
+
+            });
+            $("#modal_add").on("shown.bs.modal",function () {
+            var alimento = $("#alimento").val();
+            
+                //$("#alimento").empty();
+                    $.get("/ContaCliente/GetAlimentos",
+
+                        function (data, status) {
+
+                            var selectbox = $('#alimento');
+
+                            for (var i = 0; i < data.length; i++) {
+                                selectbox.append('<option value="' + data[i].Id_alimento + '">' + data[i].Alimento + '</option>');
+                            $("#valor_alimento").val(data[i].ValorAlimento);
+                            
+                            }
+                        
+                           
+
+                        
+                    });
+            });
+      
+
+    });
+    </script>
+
+
+    <script>
+        $("#Add_item").click(function () {
+
+
+
+               var alimento = $("#alimento").val();
+               var idConta = $("#info_idConta").text();
+               var preco = $("#valor_alimento").val();
+               var a = preco.replace(",", ".");
+           
+            $.ajax({
+                type: "post",
+                url: '/ContaCliente/AddItem',
+                data: { 
+                        id: idConta,
+                 
+                },
+                success: function (data) {
+
+
+                    $('#alert_red').html(
+                        `<div class="alert alert-success alert-dismissible col-md-6">
+                                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                                            Produto Deletado com sucesso!!
+                                                            </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
+                    //id=0;
+                    let delay = 3000; //3 seconds
+                    setTimeout(function () {
+                        history.go(0);
+                        //your code to be executed after 1 seconds
+                    }, delay);
+                    //alert(status)
+
+
+
+
+                }, error: function () {
+                    $('#alert_red').html(
+                        `<div class="alert alert-danger alert-dismissible col-md-6">
+                                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                                            Erro verifique a conexão!!
+                                                            </div>  `)
+
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('#valor_alimento').mask('000.000.000.000.000,00', { reverse: true });
+            //$('#preco').mask("#.##0,00", {reverse: true});
+        });
+    </script>
+}

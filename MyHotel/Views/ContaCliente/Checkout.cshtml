@@ -1,0 +1,73 @@
+﻿@model MyHotel.Models.ContaClienteModel
+@{
+    ViewData["Title"] = "Check out";
+}
+<br />
+<br />
+<h3 class="text-center">Valor Hospedagem</h3>
+<div class="row">
+    <div id="alert_red">
+    </div>
+</div>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID Conta</th>
+            <th>Cliente</th>
+            <th>Numero Acomodação</th>
+            <th>Acomodação</th>
+            <th>Hospedagem</th>
+        </tr>
+    </thead>
+    <tbody>
+
+       
+        @{
+           
+
+                <tr>
+                    <td>@ViewBag.lCH.Id.ToString()</td>
+                    <td>@ViewBag.lCH.Nome_cliente.ToString()</td>
+                    <td>@ViewBag.lCH.Numero_quarto.ToString()</td>
+                    <td>@ViewBag.lCH.Nome_quarto.ToString()</td>
+                    <td>@ViewBag.lCH.Total.ToString()</td>
+                </tr>
+
+            
+        }
+    </tbody>
+</table>
+
+
+<h3 class="text-center">Pedidos</h3>
+<div class="row">
+    <div id="alert_red">
+    </div>
+</div>
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Pedidos</th>
+            <th>valor</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @{
+            foreach (var item2 in (List<ContaClienteModel>)ViewBag.LCA)
+            {
+
+                <tr>
+                    <td>@item2.Id_alimento.ToString()</td>
+                    <td>@item2.Alimento.ToString()</td>
+                    <td>@item2.ValorAlimento.ToString()</td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
