@@ -1,7 +1,9 @@
 ﻿@model MyHotel.Models.ContaClienteModel
 @{
     ViewData["Title"] = "Check out";
+    
 }
+<br />
 <br />
 <br />
 <h3 class="text-center">Valor Hospedagem</h3>
@@ -31,10 +33,9 @@
                     <td>@ViewBag.lCH.Nome_cliente.ToString()</td>
                     <td>@ViewBag.lCH.Numero_quarto.ToString()</td>
                     <td>@ViewBag.lCH.Nome_quarto.ToString()</td>
-                    <td>@ViewBag.lCH.Total.ToString()</td>
+                    <td id="totalhospedagem">@ViewBag.lCH.Total.ToString("N2")</td>
                 </tr>
-
-            
+          
         }
     </tbody>
 </table>
@@ -52,6 +53,7 @@
             <th>ID</th>
             <th>Pedidos</th>
             <th>valor</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -68,6 +70,99 @@
                 </tr>
 
             }
+            
         }
+        
     </tbody>
 </table>
+
+<br />
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2 col-sm-10">
+                <label>Total dos pedidos:</label>
+                R$
+                <span id="totalpedido">@ViewBag.TPED.Soma_pedidos.ToString()</span>
+    </div>
+            <div class="col-md-4 col-md-offset-1 col-sm-10">
+                <label>Total a Pagar:</label>
+                <span id="totalapagar"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5 col-sm-10">
+            <button type="button" class="btn btn-danger"  id="btn_fechar">Finalizar</button>
+            <input type="hidden" id="custId"  value="@ViewBag.lCH.quarto_id.ToString()">
+            </div>
+        </div>
+
+
+      
+
+    @section Scripts
+    {
+
+        <script>
+     // A $( document ).ready() block.
+        $( document ).ready(function() {
+            var formatter = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 2,
+            });
+
+            var pedido = parseFloat($("#totalpedido").text());
+            var hospedagem = parseFloat($("#totalhospedagem").text());
+            var apagar = (pedido + hospedagem);
+            var apagar_formatado = formatter.format(apagar);
+            $("#totalapagar").text(apagar_formatado);
+        });
+        </script>
+    <script>
+        $("#btn_fechar").click(function () {
+
+
+
+            var id_quarto_encerrar = $("#custId").val();
+
+            $.ajax({
+                type: "post",
+                url: '/ContaCliente/FinalizaHospedagem',
+                data: {
+                    id_quarto: id_quarto_encerrar,
+
+                },
+                success: function (data) {
+
+
+                    $('#alert_red').html(
+                        `<div class="alert alert-success alert-dismissible col-md-6">
+                                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                        <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                                                    Reserva Finalizada com sucesso com sucesso!!
+                                                                    </div>  `).fadeIn(5000).delay(5000).fadeOut(5000);
+                    //id=0;
+                    let delay = 3000; //3 seconds
+                    setTimeout(function () {
+                        history.go(-1);
+                        location.reload();
+                        //your code to be executed after 1 seconds
+                    }, delay);
+                    //alert(status)
+
+
+
+
+                }, error: function () {
+                    $('#alert_red').html(
+                        `<div class="alert alert-danger alert-dismissible col-md-6">
+                                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                        <h5><i class="icon fas fa-ban"></i> Alerta!</h5>
+                                                                    Erro verifique a conexão!!
+                                                                    </div>  `)
+
+                }
+            });
+        });
+    </script>
+
+    }
